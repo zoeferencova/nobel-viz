@@ -118,6 +118,7 @@ let updateMap = function (countryData) {
         // Filters out countries with no winners, only display winning countries on map
         .filter((d) => d.value > 0)
         .map(function (d) {
+            if (!cnameToCountry[d.key]) console.log(d.key)
             return {
                 // Uses country's key (name) to retrieve its GeoJSON file
                 geo: cnameToCountry[d.key],

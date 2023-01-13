@@ -335,7 +335,7 @@
         "capital": "Brussels",
         "population": 11225469
     },
-    "China (People's Republic of China)": {
+    "China": {
         "gini": 47.0,
         "name": "China",
         "alpha3Code": "CHN",
@@ -743,9 +743,9 @@
         "capital": "Minsk",
         "population": 9398861
     },
-    "Congo, Democratic Republic": {
+    "Congo, the Democratic Republic of the": {
         "gini": 42.1,
-        "name": "Democratic Republic of the Congo",
+        "name": "Congo, the Democratic Republic of the",
         "alpha3Code": "COG",
         "area": 2344858.0,
         "latlng": [
