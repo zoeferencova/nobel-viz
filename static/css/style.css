@@ -1,0 +1,304 @@
+@import url("https://use.typekit.net/obm4uuk.css");
+
+body {
+    font-family: 'Neue Haas Unica', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    background: #fefefe;
+    width: 1000px;
+    margin: 0 auto;
+    /* top and bottom 0, left and right auto */
+}
+
+.text-sm,
+.labels,
+select {
+    font-size: 12px;
+}
+
+select:hover {
+    cursor: pointer;
+}
+
+#chart {
+    position: relative;
+}
+
+a:link {
+    color: #5b92a6;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+#nbviz {
+    position: absolute;
+    top: 90px;
+    width: 100%;
+}
+
+#title {
+    position: absolute;
+    font-size: 30px;
+    top: 20px;
+}
+
+#info {
+    position: absolute;
+    font-size: 11px;
+    top: 18px;
+    width: 300px;
+    right: 0px;
+    line-height: 1.2;
+}
+
+#chart-holder {
+    width: 100%;
+    height: 750px;
+    position: relative;
+    padding: 0 0 20px 0;
+    /* top right bottom left */
+}
+
+#chart-holder svg {
+    width: 100%;
+    height: 100%;
+}
+
+#nobel-map,
+#nobel-winner,
+#nobel-bar,
+#nobel-time,
+#nobel-list {
+    position: absolute;
+}
+
+#nobel-menu,
+#metric-radio {
+    display: flex;
+    align-items: center;
+}
+
+#metric-radio label {
+    display: inline-flex;
+    align-items: center;
+    flex-direction: row-reverse;
+}
+
+#nobel-menu select {
+    margin-right: 30px;
+}
+
+#metric-radio form {
+    margin-left: 5px
+}
+
+#metric-radio input {
+    margin-right: 5px;
+}
+
+#metric-radio input:hover {
+    cursor: pointer;
+}
+
+#nobel-time {
+    top: 0;
+    height: 150px;
+    width: 100%;
+}
+
+#nobel-map {
+    background: #e9f5f7;
+    top: 160px;
+    width: 700px;
+    height: 350px;
+}
+
+#nobel-winner {
+    top: 510px;
+    left: 700px;
+    height: 240px;
+    width: 300px;
+}
+
+#nobel-bar {
+    top: 510px;
+    height: 240px;
+    width: 700px;
+}
+
+#nobel-list {
+    top: 160px;
+    height: 340px;
+    width: 290px;
+    left: 700px;
+    padding-left: 10px;
+}
+
+#nobel-list * {
+    font-weight: normal;
+}
+
+
+/* BAR CHART */
+.bar {
+    fill: #b6d1b7;
+}
+
+#nobel-bar .active {
+    fill: goldenrod;
+    opacity: 0.5;
+}
+
+.axis {
+    font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+/* MAP */
+.graticule {
+    fill: none;
+    stroke: #777;
+    stroke-width: 0.5px;
+    stroke-opacity: 0.5;
+}
+
+.land {
+    /*fill: #b8c8b6;*/
+    fill: #ddd;
+}
+
+.country {
+    fill: rgb(175, 195, 186);
+}
+
+.country.active {
+    fill: rgb(155, 175, 166);
+}
+
+.centroid {
+    fill: red;
+    fill-opacity: 0.3;
+    pointer-events: none;
+}
+
+.centroid.active {
+    fill: goldenrod;
+    fill-opacity: 0.6;
+}
+
+.boundary {
+    fill: none;
+    stroke: #fff;
+    stroke-width: 0.5px;
+}
+
+/* MAP TOOLTIP */
+#map-tooltip {
+    position: absolute;
+    /* min-width: 10px; */
+    /* min-height: 10px; */
+    pointer-events: none;
+    color: #eee;
+    font-size: 12px;
+    /* border:10px; */
+    opacity: 0.7;
+    background: #222;
+    border: 2px solid #555;
+    border-color: goldenrod;
+    padding: 10px;
+    left: -999px;
+}
+
+#map-tooltip h2 {
+    text-align: center;
+    padding: 0px;
+    margin: 0px;
+}
+
+/* WINNERS LIST */
+#nobel-list {
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+#nobel-list table {
+    font-size: 10px;
+}
+
+#nobel-list table th {
+    font-weight: 600;
+    text-align: left;
+}
+
+#nobel-list table th#year {
+    width: 30px
+}
+
+#nobel-list table th#category {
+    width: 120px
+}
+
+#nobel-list table th#name {
+    width: 120px
+}
+
+#nobel-list h2 {
+    font-size: 14px;
+    margin: 0px 0px 10px 0px;
+    font-weight: 600;
+}
+
+#nobel-list tr:hover {
+    cursor: pointer;
+    background: #c0e3ed;
+}
+
+/* WINNER INFOBOX */
+#nobel-winner {
+    font-size: 11px;
+    overflow: auto;
+    overflow-x: hidden;
+    border-top: 5px solid;
+}
+
+#nobel-winner #winner-title {
+    font-size: 14px;
+    padding: 10px 0px;
+    font-weight: 600;
+}
+
+#nobel-winner #infobox .label {
+    display: inline-block;
+    width: 60px;
+    font-weight: 600;
+}
+
+#nobel-winner #biobox {
+    font-size: 11px;
+}
+
+#nobel-winner #biobox p {
+    text-align: justify;
+}
+
+#nobel-winner #picbox {
+    float: right;
+    margin-left: 12px;
+    margin-bottom: 3px;
+}
+
+#nobel-winner #picbox img {
+    width: 100px;
+}
+
+#nobel-winner #readmore {
+    /* font-weight: bold; */
+    text-align: center;
+}
