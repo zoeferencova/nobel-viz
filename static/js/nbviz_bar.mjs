@@ -26,8 +26,6 @@ let yScale = d3.scaleLinear().range([height, 0])
 
 let xAxis = d3.axisBottom().scale(xScale).tickSizeOuter(0)
 
-
-
 let yAxis = d3
     .axisLeft()
     .scale(yScale)
@@ -120,17 +118,21 @@ let updateBarChart = function (data, firstLoad) {
                     .append('rect')
                     .attr('class', 'bar')
                     .attr('x', xPaddingLeft)
+
             }
         )
         .classed('active', function (d) {
             return d.key === nbviz.activeCountry
         })
+
         .transition()
         .duration(firstLoad ? 0 : nbviz.TRANS_DURATION)
         // Setting x position of bars
         .attr('x', d => xScale(d.code))
         // Setting width of bars. bandwidth() automatically calculates width based on scale
         .attr('width', xScale.bandwidth())
+        .attr('fill', nbviz.COLORS[nbviz.activeCategory])
+        .style('opacity', 0.8)
 
         // Setting y values
         // Setting height of bars, subtracting y value from total chart height

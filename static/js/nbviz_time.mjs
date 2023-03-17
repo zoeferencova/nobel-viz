@@ -44,34 +44,6 @@ svg.append("g") // group to hold the axis
     .selectAll("text")
     .style("text-anchor", "middle")
 
-// Created function for adding two sets of category labels
-// side by side
-let makeCatLabels = function (cats, xPosition) {
-    let catLabels = chartHolder.select('svg').append('g')
-        .attr('transform', "translate(5, 15)")
-        .attr('class', 'labels')
-        .selectAll('label').data(cats)
-        .join('g')
-        // Creates group for every category, spaced vertically 10px apart
-        .attr('transform', function (d, i) {
-            return `translate(${xPosition}, ${i * 10})`;
-        });
-
-    catLabels.append('circle')
-        .attr('fill', (nbviz.categoryFill))
-        .attr('r', xScale.bandwidth() / 2)
-
-    catLabels.append('text')
-        .text(d => d)
-        .attr('dy', '0.4em')
-        .attr('x', 10)
-        .style('font-size', 9)
-}
-
-makeCatLabels(nbviz.CATEGORIES.slice(0, 3), 0)
-makeCatLabels(nbviz.CATEGORIES.slice(3, nbviz.CATEGORIES.length), 80)
-
-
 var updateTimeChart = function (data) {
     // Join year data into respective column by year key
     // instead of default arr index (to account for year gaps)
@@ -101,6 +73,7 @@ var updateTimeChart = function (data) {
         .attr('fill', function (d) {
             return nbviz.categoryFill(d.category)
         })
+        .style('opacity', 0.7)
         .attr('cx', xScale.bandwidth() / 2)
         .attr('r', xScale.bandwidth() / 2)
         .transition()

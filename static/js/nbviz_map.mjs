@@ -25,17 +25,20 @@ let MANUAL_CENTROIDS = {
 };
 
 
+
+
 // projections specify different globe representations and can be configured
 // using various methods (scale, center, precision, etc.)
 let projection = d3.geoEquirectangular()
     // Slightly enlarging scale
-    .scale(193 * (height / 480))
+    .scale(175 * (height / 480))
     // Centered at 15 degrees east, 15 degrees north
     .center([15, 15])
     .translate([width / 2, height / 2])
     // Used for adaptive resampling to increase accuracy of projected lines
     // and polygons while still performing efficiently
     .precision(0.1);
+
 
 // Create SVG path out of map projection, setting path and projection in one go
 var path = d3.geoPath()
@@ -86,6 +89,8 @@ export let initMap = function (world, names) {
         cnameToCountry[n.name] = idToCountry[n.id];
     });
 
+
+
     // Main world map
     svg.insert("path", ".graticule")
         // datum assigns whole land object to path
@@ -109,6 +114,9 @@ export let initMap = function (world, names) {
         .datum(borders)
         .attr("class", "boundary")
         .attr("d", path);
+
+
+
 }
 
 let tooltip = d3.select("#map-tooltip");
@@ -238,7 +246,10 @@ let updateMap = function (countryData) {
         .duration(nbviz.TRANS_DURATION)
         .style("opacity", 1)
         // Set circle radius based on radius scale
-        .attr("r", (d) => radiusScale(+d.number));
+        .attr("r", (d) => radiusScale(+d.number))
+        .attr('fill', nbviz.COLORS[nbviz.activeCategory])
+        .style('opacity', 0.5)
+
 };
 
 nbviz.callbacks.push(() => {

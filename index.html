@@ -6,98 +6,110 @@
 
 <body>
     <div id='chart'>
-        <!-- 2. A HEADER WITH TITLE AND SOME EXPLANATORY INFO -->
-        <div id='title'>Visualizing the Nobel Prize</div>
-        <div id="info">
-            This visualization was created following instructions from <a
-                href='https://learning.oreilly.com/library/view/data-visualization-with/9781098111861/'>
-                Data visualization with Python and JavaScript</a>. The Github repository can be found <a
-                href="https://github.com/zoeferencova/nobel-viz">here</a>.
-        </div>
-        <!-- 3. THE PLACEHOLDERS FOR OUR VISUAL COMPONENTS  -->
-        <div id="nbviz">
+        <div id="sidebar">
+            <!-- 2. A HEADER WITH TITLE AND SOME EXPLANATORY INFO -->
+            <div id='header'>
+                <h1 id='title'>Visualizing the Nobel Prize</h1>
+                <p id="subtitle">
+                    Created with guidance from
+                    <a href='https://learning.oreilly.com/library/view/data-visualization-with/9781098111861/'>Data
+                        Visualization with Python and JavaScript</a>
+                </p>
+            </div>
             <!-- BEGIN MENU BAR -->
             <div id="nobel-menu" class="text-sm">
                 <div id="cat-select">
-                    Category
-                    <select></select>
+                    <label class="filter-label">Filter by category</label>
                 </div>
                 <div id="gender-select">
-                    Gender
-                    <select>
-                        <option value="All">All</option>
-                        <option value="female">Female</option>
-                        <option value="male">Male</option>
-                    </select>
+                    <label class="filter-label">Filter by gender</label>
+                    <form>
+                        <label>Female <input type="checkbox" value="female" checked></label>
+                        <label>Male <input type="checkbox" value="male" checked></label>
+                    </form>
                 </div>
                 <div id="country-select">
-                    Country
+                    <label class="filter-label">Filter by country</label>
                     <select></select>
                 </div>
                 <div id='metric-radio'>
-                    Number of Winners:&nbsp;
+                    <label class="filter-label">Number of Winners</label>
                     <form>
-                        <label>absolute
+                        <label>Absolute
                             <input type="radio" name="mode" value="0" checked>
                         </label>
-                        <label>per-capita
+                        <label>Per capita
                             <input type="radio" name="mode" value="1">
                         </label>
                     </form>
                 </div>
             </div>
             <!-- END MENU BAR  -->
+        </div>
+
+        <!-- VISUAL COMPONENTS  -->
+        <div id="nbviz">
             <!-- BEGIN NOBEL-VIZ COMPONENTS -->
             <div id='chart-holder' class='_dev'>
                 <!-- TIME LINE OF PRIZES -->
                 <div id="nobel-time"></div>
-                <!-- MAP AND TOOLTIP -->
-                <div id="nobel-map">
-                    <div id="map-tooltip">
-                        <h2></h2>
-                        <p></p>
+                <div id="lower-charts">
+                    <div id="left-col">
+                        <!-- MAP AND TOOLTIP -->
+                        <div id="nobel-map">
+                            <div id="map-tooltip">
+                                <h2></h2>
+                                <p></p>
+                            </div>
+                        </div>
+                        <!-- NOBEL BAR CHART -->
+                        <div id="nobel-bar"></div>
+                    </div>
+                    <div id="right-col">
+                        <!-- LIST OF WINNERS -->
+                        <div id="nobel-list" class="text-sm">
+                            <h2 class="list-title">Selected winners</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th id='year'>Year</th>
+                                        <th id='category'>Category</th>
+                                        <th id='name'>Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- BIOGRAPHY BOX -->
+                        <div id="nobel-winner" class="text-sm">
+                            <div id="winner-top">
+                                <div id="winner-top-left">
+                                    <div id="picbox"><img /></div>
+                                    <div id="winner-details">
+                                        <div id='winner-title'></div>
+                                        <div class='property yr'>
+                                            <span name='country'></span>,
+                                            <span name='year'></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class='property cat'>
+                                    <span name='category'></span>
+                                </div>
+                            </div>
+                            <div id='biobox'></div>
+                            <div id='readmore'>
+                                <a href='#'>Read more at Wikipedia</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <!-- LIST OF WINNERS -->
-                <div id="nobel-list" class="text-sm">
-                    <h2>Selected winners</h2>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th id='year'>Year</th>
-                                <th id='category'>Category</th>
-                                <th id='name'>Name</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-                <!-- BIOGRAPHY BOX -->
-                <div id="nobel-winner" class="text-sm">
-                    <div id="picbox"><img /></div>
-                    <div id='winner-title'></div>
-                    <div id='infobox'>
-                        <div class='property'>
-                            <div class='label'>Category</div>
-                            <span name='category'></span>
-                        </div>
-                        <div class='property'>
-                            <div class='label'>Year</div>
-                            <span name='year'></span>
-                        </div>
-                        <div class='property'>
-                            <div class='label'>Country</div>
-                            <span name='country'></span>
-                        </div>
-                    </div>
-                    <div id='biobox'></div>
-                    <div id='readmore'>
-                        <a href='#'>Read more at Wikipedia</a>
-                    </div>
-                </div>
-                <!-- NOBEL BAR CHART -->
-                <div id="nobel-bar"></div>
+
+
+
+
             </div>
             <!-- END NOBEL-VIZ COMPONENTS -->
         </div>
@@ -107,7 +119,6 @@
     <script src="static/libs/d3.min.js"></script>
     <script src="static/libs/topojson.min.js"></script>
     <script src="static/libs/crossfilter.min.js"></script>
-
     <!-- JAVASCRIPT MODULES FOR NOBEL ELEMENTS -->
     <script type="module" src="static/js/nbviz_main.mjs"></script>
 </body>

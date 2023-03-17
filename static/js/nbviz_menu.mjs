@@ -1,42 +1,72 @@
 import nbviz from './nbviz_core.mjs'
 
-// Create category selector list, concatenating 'All Categories' with cat list
-let catList = [nbviz.ALL_CATS].concat(nbviz.CATEGORIES)
+let catSelect = d3.select("#cat-select")
+const circleRadius = 7;
 
-// Use D3 to grab category select tag
-let catSelect = d3.select('#cat-select select');
+let makeCatFilter = function (cats) {
+    let catFilter = catSelect.append('svg')
+        .attr('id', 'cat-filter')
+        .selectAll().data(Object.keys(cats).slice(0, -1))
+        .join('g')
+        .classed('cat-filter-item', true)
+        // Creates group for every category, spaced vertically 10px apart
+        .attr('transform', function (d, i) {
+            return `translate(${circleRadius}, ${i * 24 + circleRadius})`;
+        })
 
-// Use D3 data join to turn catList into HTML option tags
-catSelect.selectAll('option')
-    .data(catList)
-    .join('option')
-    .attr('value', d => d)
-    .html(d => d);
+    catFilter.append('circle')
+        .attr('fill', (nbviz.categoryFill))
+        .attr('r', circleRadius)
+        .attr('opacity', 0.7)
 
-// Trigger category filtering on option selection
-// Call onDataChange to update chart elements
-catSelect.on('change', function (d) {
-    // Update first load var to change transition style 
-    nbviz.firstLoad = false
-    let category = d3.select(this).property('value');
-    nbviz.filterByCategory(category);
-    nbviz.onDataChange();
-});
+    catFilter.append('text')
+        .text(d => d)
+        .attr('dy', '0.4em')
+        .attr('x', 18)
+        .style('font-size', 14)
 
-d3.select('#gender-select select')
-    .on('change', function (d) {
+    catFilter.on('click', function (d) {
         // Update first load var to change transition style 
         nbviz.firstLoad = false
-        let gender = d3.select(this).property('value');
-        if (gender === 'All') {
-            // Resets gender dimension 
-            nbviz.genderDim.filter();
+        let category = d3.select(this).property('__data__')
+        if (category === 'All Categories') {
+            d3.selectAll('.cat-filter-item').attr('opacity', 1)
+        } else {
+            d3.selectAll('.cat-filter-item').attr('opacity', 0.3)
+            d3.select(this).attr('opacity', 1)
         }
-        else {
-            nbviz.genderDim.filter(gender);
-        }
+        nbviz.filterByCategory(category);
         nbviz.onDataChange();
     });
+}
+
+makeCatFilter(nbviz.COLORS)
+
+
+d3.select('#gender-select form')
+    .on('change', function (d) {
+        var boxes = d3.selectAll("#gender-select input");
+        const checked = []
+        boxes.each(function () {
+            if (this.checked) checked.push({ item: this, value: this.value })
+        })
+
+        if (checked.length > 1) {
+            nbviz.genderDim.filter();
+            d3.select('#nobel-winner').style('opacity', '1')
+            // checked.forEach(el => el.item.disabled = false)
+        } else if (checked.length === 1) {
+            nbviz.genderDim.filter(checked[0].value);
+            d3.select('#nobel-winner').style('opacity', '1')
+            // checked[0].item.disabled = true
+        } else {
+            nbviz.genderDim.filter('none')
+            d3.select('#nobel-winner').style('opacity', '0')
+        }
+
+        nbviz.onDataChange();
+    });
+
 
 d3.selectAll('#metric-radio input').on('change', function () {
     // Update first load var to change transition style 

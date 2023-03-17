@@ -6,7 +6,6 @@ let nbviz = {
 nbviz.ALL_CATS = 'All Categories'
 nbviz.MAX_CENTROID_RADIUS = 30
 nbviz.MIN_CENTROID_RADIUS = 2
-nbviz.COLORS = { palegold: '#E6BE8A' } // any named colors used
 nbviz.TRANS_DURATION = 1000 // time in milliseconds
 
 // Variable to prevent transition on first load
@@ -23,14 +22,19 @@ nbviz.CATEGORIES = [
     "Physics", "Physiology or Medicine"
 ];
 
-// takes a category like Physics and returns a color
-// schemeCategory10 is an array of 10 color hex codes from
-// one of D3's built-in color schemes
+nbviz.COLORS = {
+    "Chemistry": '#00798c',
+    "Economics": '#d1495b',
+    "Literature": '#edae49',
+    "Peace": '#66a182',
+    "Physics": '#2e4057',
+    "Physiology or Medicine": '#7570B5',
+    "All Categories": "#9CA3AF",
+    "Physiology": '#7570B5',
+}
+
 nbviz.categoryFill = function (category) {
-    let catIndex = nbviz.CATEGORIES.indexOf(category)
-    // Skip ugly orange colour lol
-    var i = catIndex > 0 ? catIndex += 1 : catIndex
-    return d3.schemeTableau10[i];
+    return nbviz.COLORS[category]
 };
 
 nbviz.nestDataByYear = function (entries) {

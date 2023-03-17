@@ -33,6 +33,7 @@ let updateList = function (data) {
         .selectAll('tr')
         .selectAll('td')
         .data(function (d) {
+            d.category === 'Physiology or Medicine' ? d.category = 'Physiology' : null
             return [d.year, d.category, d.name]
         })
     // Append data cells, then set their text
@@ -41,6 +42,8 @@ let updateList = function (data) {
     if (data.length) {
         displayWinner(data[Math.floor(Math.random() * data.length)])
     }
+
+
 }
 
 let displayWinner = function (wData) {
@@ -48,14 +51,20 @@ let displayWinner = function (wData) {
     let nw = d3.select('#nobel-winner')
 
     nw.select('#winner-title').text(wData.name)
-    nw.style('border-color', nbviz.categoryFill(wData.category))
 
     // Select span tags of all divs with class property, then use span's name
     // attr to retrieve correct property from winner data and set tag's text
-    nw.selectAll('.property span').text(function (d) {
-        var property = d3.select(this).attr('name')
-        return wData[property]
-    })
+    nw.selectAll('.property span')
+        .text(function (d) {
+            var property = d3.select(this).attr('name')
+            return wData[property]
+        })
+
+
+    nw.select('.cat')
+        .style('color', nbviz.COLORS[wData.category])
+        .style('filter', 'brightness(80%)')
+        .style('background', nbviz.COLORS[wData.category] + '25')
 
     nw.select('#biobox').html(wData.mini_bio)
     // Add an image if available, otherwise remove the old one
@@ -64,7 +73,9 @@ let displayWinner = function (wData) {
             .attr('src', 'static/images/winners/' + wData.bio_image)
             .style('display', 'inline')
     } else {
-        nw.select('#picbox img').style('display', 'none')
+        nw.select('#picbox img')
+            .attr('src', 'static/images/default.png')
+            .style('display', 'inline')
     }
 
     nw.select('#readmore a').attr(
