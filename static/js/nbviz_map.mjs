@@ -81,12 +81,11 @@ export let initMap = function (world, names) {
         idToCountry[c.id] = c;
     });
 
+
     cnameToCountry = {};
     names.forEach(function (n) {
         cnameToCountry[n.name] = idToCountry[n.id];
     });
-
-
 
     // Main world map
     svg.insert("path", ".graticule")
@@ -111,9 +110,6 @@ export let initMap = function (world, names) {
         .datum(borders)
         .attr("class", "boundary")
         .attr("d", path);
-
-
-
 }
 
 let tooltip = d3.select("#map-tooltip");
@@ -123,7 +119,6 @@ let updateMap = function (countryData) {
         // Filters out countries with no winners, only display winning countries on map
         .filter((d) => d.value > 0)
         .map(function (d) {
-            if (!cnameToCountry[d.key]) console.log(d.key)
             return {
                 // Uses country's key (name) to retrieve its GeoJSON file
                 geo: cnameToCountry[d.key],
