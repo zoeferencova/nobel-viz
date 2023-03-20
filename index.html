@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1" name="viewport" />
 <title>Visualizing the Nobel Prize</title>
 <!-- 1. IMPORT THE visualization'S CSS STYLING -->
 <link rel="stylesheet" href="static/css/style.css" media="screen" />
@@ -24,8 +25,16 @@
                 <div id="gender-select">
                     <label class="filter-label">Filter by gender</label>
                     <form>
-                        <label>Female <input type="checkbox" value="female" checked></label>
-                        <label>Male <input type="checkbox" value="male" checked></label>
+                        <label class="gender-select-option">
+                            Female
+                            <input type="checkbox" value="female" checked>
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="gender-select-option">
+                            Male
+                            <input type="checkbox" value="male" checked>
+                            <span class="checkmark"></span>
+                        </label>
                     </form>
                 </div>
                 <div id="country-select">
@@ -35,10 +44,10 @@
                 <div id='metric-radio'>
                     <label class="filter-label">Number of Winners</label>
                     <form>
-                        <label>Absolute
+                        <label class="metric-radio-item">Absolute
                             <input type="radio" name="mode" value="0" checked>
                         </label>
-                        <label>Per capita
+                        <label class="metric-radio-item">Per capita
                             <input type="radio" name="mode" value="1">
                         </label>
                     </form>

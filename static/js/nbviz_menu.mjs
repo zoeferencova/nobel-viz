@@ -23,7 +23,12 @@ let makeCatFilter = function (cats) {
         .text(d => d)
         .attr('dy', '0.4em')
         .attr('x', 18)
-        .style('font-size', 14)
+
+    if (window.innerWidth < 900) {
+        catFilter.style('font-size', '12px')
+    } else {
+        catFilter.style('font-size', '14px')
+    }
 
     catFilter.on('click', function (d) {
         // Update first load var to change transition style 

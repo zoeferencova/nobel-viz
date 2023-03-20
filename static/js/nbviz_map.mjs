@@ -8,8 +8,8 @@ import nbviz from "./nbviz_core.mjs";
 // 5. Join items to map and customize appearance using D3 and CSS
 // 6. Add indicators, tooltips or highlighting based on events
 
-let defaultMapWidth = 960,
-    defaultMapHeight = 480;
+// let defaultMapWidth = 960,
+//     defaultMapHeight = 480;
 
 // DIMENSIONS AND SVG
 let mapContainer = d3.select("#nobel-map");
@@ -19,13 +19,10 @@ let width = boundingRect.width,
 
 let svg = mapContainer.append('svg');
 
-let MANUAL_CENTROIDS = {
-    France: [2, 46],
-    "United States": [-98, 35, 39.5],
-};
-
-
-
+// let MANUAL_CENTROIDS = {
+//     France: [2, 46],
+//     "United States": [-98, 35, 39.5],
+// };
 
 // projections specify different globe representations and can be configured
 // using various methods (scale, center, precision, etc.)
@@ -251,6 +248,21 @@ let updateMap = function (countryData) {
         .style('opacity', 0.5)
 
 };
+
+// Working on updating map when resizing page
+
+// d3.select(window)
+//     .on("resize", function () {
+//         width = mapContainer.node().getBoundingClientRect().width;
+//         height = width / aspect;
+//         svg.attr("width", width);
+//         svg.attr("height", height);
+//         projection.scale(175 * (height / 480))
+//         // Centered at 15 degrees east, 15 degrees north
+//         projection.center([15, 15])
+//         projection.translate([width / 2, height / 2])
+//         updateMap(nbviz.getCountryData())
+//     });
 
 nbviz.callbacks.push(() => {
     let data = nbviz.getCountryData();
